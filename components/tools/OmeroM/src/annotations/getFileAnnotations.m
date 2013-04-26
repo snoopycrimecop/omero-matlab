@@ -1,9 +1,16 @@
-function types = getObjectTypes()
-% GETOBJECTTYPES Return a dictionary of OMERO object types
+function fas = getFileAnnotations(session, ids)
+% GETFILEANNOTATIONS Retrieve file annotations from the OMERO server
 %
-%   types = getObjectTypes() returns a dictionary of OMERO object types.
+%   fas = getFileAnnotations(session, ids) returns all the file
+%   annotations identified by the input ids in the context of the session
+%   group.
 %
-% See also: GETOBJECTS, GETANNOTATIONTYPES
+%   Examples:
+%
+%      fas = getFileAnnotations(session, ids);
+%
+% See also: GETANNOTATIONTYPES, GETANNOTATIONS, GETTAGANNOTATIONS,
+% GETCOMMENTANNOTATIONS, GETXMLANNOTATIONS
 
 % Copyright (C) 2013 University of Dundee & Open Microscopy Environment.
 % All rights reserved.
@@ -22,6 +29,10 @@ function types = getObjectTypes()
 % with this program; if not, write to the Free Software Foundation, Inc.,
 % 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-names = {'project', 'dataset', 'image', 'screen', 'plate', 'plateacquisition'};
-classnames = {'Project', 'Dataset', 'Image', 'Screen', 'Plate', 'PlateAcquisition'};
-types = createObjectDictionary(names, classnames);
+% Check input
+ip = inputParser;
+ip.addRequired('ids', @(x) isvector(x) || isempty(x));
+ip.parse(ids);
+
+% Return file annotations
+fas = getAnnotations(session, ids, 'file');
