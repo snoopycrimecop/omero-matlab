@@ -57,7 +57,7 @@ function [client, session] = loadOmero(varargin)
 % 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 % Check if "omero.client" is already on the classpath, if not
-% then add the omero_client.jar to the javaclasspath.
+% then add the dependencies to the javaclasspath.
 if exist('omero.client','class') == 0
     
     disp('');
