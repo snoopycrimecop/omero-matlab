@@ -7,7 +7,7 @@ function jarList = getOmeroJars()
 %
 % See also: LOADOMERO, UNLOADOMERO
 
-% Copyright (C) 2014 University of Dundee & Open Microscopy Environment.
+% Copyright (C) 2014-2019 University of Dundee & Open Microscopy Environment.
 % All rights reserved.
 %
 % This program is free software; you can redistribute it and/or modify
@@ -23,41 +23,22 @@ function jarList = getOmeroJars()
 % You should have received a copy of the GNU General Public License along
 % with this program; if not, write to the Free Software Foundation, Inc.,
 % 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-%   Detailed explanation goes here
 
 % Retrieve path to the toolbox libraries
 libpath = fullfile(findOmero(), 'libs');
 
 % Create a cell array with the dependency jars
-guava_jar = fullfile(libpath, 'guava.jar');
-jarList = {guava_jar};
-
-% For recent versions of MATLAB, some JAR dependencies are  shipped with
-% the external Java libraries:
-% * log4j.jar is under $matlabroot/java/jarext,
-% * sl4j-api.jar and sl4j-log4j12.jar are under
-%   $matlabroot/java/jarext/jxbrowser.
+files = dir(libpath);
+L = length(files);
+jarList = {};
 javaPath = javaclasspath('-all');
-has_log4j = any(~cellfun(@isempty, regexp(javaPath, '.*log4j.jar$',...
+for i=1:L
+    name = strcat('.*', files(i).name, '$');
+    has_jar = any(~cellfun(@isempty, regexp(javaPath, name,...
     'match', 'once')));
-has_slf4j = any(~cellfun(@isempty, regexp(javaPath, '.*slf4j-api.jar$',...
-    'match', 'once')));
-
-% Include log4j dependency if not present in MATLAB java classpath
-if ~has_log4j
-    log4j_jar = fullfile(libpath, 'log4j.jar');
-    jarList = horzcat(jarList, {log4j_jar});
+    if ~has_jar
+        jar_file = fullfile(libpath, files(i).name);
+        jarList = horzcat(jarList, {jar_file});
 end
-
-% Include slf4j dependencies if not present in MATLAB java classpath
-if ~has_slf4j
-    slf4j_api_jar = fullfile(libpath, 'slf4j-api.jar');
-    slf4j_log4j12_jar = fullfile(libpath, 'slf4j-log4j12.jar');
-    jarList = horzcat(jarList, {slf4j_api_jar, slf4j_log4j12_jar});
-end
-
-% Finally add omero_client.jar
-omero_client_jar = fullfile(libpath, 'omero_client.jar');
-jarList = horzcat(jarList, {omero_client_jar});
 
 end
