@@ -4,6 +4,7 @@ plugins {
 }
 
 group = "org.openmicroscopy"
+version = "5.5.0-SNAPSHOT"
 
 repositories {
     mavenLocal()
@@ -14,14 +15,29 @@ dependencies {
     implementation("org.openmicroscopy:omero-blitz:5.5.0-m4")
 }
 
+task copyFiles(type: Copy) {
+    from "src/main"
+    into "${project.buildDir}/dist"
+    rename {
+        //set the bundle version in the distribution
+        String filename ->
+            if (filename.endsWith("omeroVersion.m")) {
+                File src = new File("src/main/omeroVersion.m")
+                File dest = new File("build/dist/"+filename)
+                dest << src.text.replaceAll('@DEVBUILD@', version)
+            }
+    }
+
+}
 
 task packageDistribution(type: Zip) {
-    archiveFileName = "omero-matlab-5.5.0-SNAPSHOT.zip"
-    destinationDirectory = file("$buildDir/dist")
-    from "src/main"
+    archiveFileName = "omero-matlab-"+version+".zip"
+
+    from "${project.buildDir}/dist"
     into('libs') {
         from configurations.compileClasspath
     }
 }
+packageDistribution.dependsOn copyFiles
 
 build.dependsOn packageDistribution
