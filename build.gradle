@@ -1,0 +1,27 @@
+plugins {
+    id "java"
+    id "org.openmicroscopy.project" version "5.5.0-m4"
+}
+
+group = "org.openmicroscopy"
+
+repositories {
+    mavenLocal()
+    jcenter()
+}
+
+dependencies {
+    implementation("org.openmicroscopy:omero-blitz:5.5.0-m4")
+}
+
+
+task packageDistribution(type: Zip) {
+    archiveFileName = "omero-matlab-5.5.0-SNAPSHOT.zip"
+    destinationDirectory = file("$buildDir/dist")
+    from "src/main"
+    into('libs') {
+        from configurations.compileClasspath
+    }
+}
+
+build.dependsOn packageDistribution
