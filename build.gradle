@@ -16,8 +16,10 @@ dependencies {
     implementation("com.zeroc:glacier2:3.6.4")
 }
 
+
 task copyFiles(type: Copy) {
     from "src/main"
+    from file("src/ice.config")
     into "${project.buildDir}/dist"
     rename {
         //set the bundle version in the distribution
