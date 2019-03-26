@@ -17,18 +17,12 @@ dependencies {
 
 
 task copyFiles(type: Copy) {
-    from "src/main"
+    //Copy the files and set the version
+    from("src/main") {
+        filter{ it.replaceAll('@DEVBUILD@', version)}
+    }
     from file("src/ice.config")
     into "${project.buildDir}/dist"
-    rename {
-        //set the bundle version in the distribution
-        String filename ->
-            if (filename.endsWith("omeroVersion.m")) {
-                File src = new File("src/main/omeroVersion.m")
-                File dest = new File("build/dist/"+filename)
-                dest << src.text.replaceAll('@DEVBUILD@', version)
-            }
-    }
 
 }
 
