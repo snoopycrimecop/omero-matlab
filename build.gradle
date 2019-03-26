@@ -33,7 +33,7 @@ task copyFiles(type: Copy) {
 }
 
 task packageDistribution(type: Zip) {
-    archiveFileName = "omero-matlab-"+version+".zip"
+    archiveFileName = "OMERO.matlab-"+version+".zip"
 
     from "${project.buildDir}/dist"
     into('libs') {
