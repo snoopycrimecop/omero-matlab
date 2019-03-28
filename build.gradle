@@ -29,11 +29,10 @@ task copyFiles(type: Copy) {
 task packageDistribution(type: Zip) {
     archiveFileName = "OMERO.matlab-"+version+".zip"
 
-    from "${project.buildDir}/dist"
+    from copyFiles
     into('libs') {
         from configurations.runtimeClasspath
     }
 }
-packageDistribution.dependsOn copyFiles
 
 build.dependsOn packageDistribution
