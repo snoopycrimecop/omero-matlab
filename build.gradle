@@ -1,0 +1,38 @@
+plugins {
+    id "java"
+    id "org.openmicroscopy.project" version "5.5.0-m4"
+}
+
+group = "org.openmicroscopy"
+version = "5.5.0-SNAPSHOT"
+
+repositories {
+    mavenLocal()
+    jcenter()
+}
+
+dependencies {
+    implementation("org.openmicroscopy:omero-blitz:5.5.0-m4")
+}
+
+
+task copyFiles(type: Copy) {
+    //Copy the files and set the version
+    from("src/main") {
+        filter{ it.replaceAll('@DEVBUILD@', version)}
+    }
+    from file("src/ice.config")
+    into "${project.buildDir}/dist"
+
+}
+
+task packageDistribution(type: Zip) {
+    archiveFileName = "OMERO.matlab-"+version+".zip"
+
+    from copyFiles
+    into('libs') {
+        from configurations.runtimeClasspath
+    }
+}
+
+build.dependsOn packageDistribution

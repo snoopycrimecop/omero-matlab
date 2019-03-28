@@ -24,11 +24,11 @@ if ismac
     java.lang.System.setProperty('java.util.prefs.PreferencesFactory','java.util.prefs.MacOSXPreferencesFactory');
 end
 
-% Load Omero and create ImportConfi object
+% Load Omero and create ImportConfig object
 loadOmero();
 config = ome.formats.importer.ImportConfig();
 
-% Set configuraiton
+% Set configuration
 config.hostname.set(hostname);
 config.username.set(user);
 config.password.set(password);
