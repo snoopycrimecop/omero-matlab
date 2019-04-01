@@ -87,7 +87,7 @@ p.parse(session,parentType,parentID,varargin{:});
 annt = p.Results.annt;
 
 
-% https://docs.openmicroscopy.org/omero/5.4.6/developers/Model/StructuredAnnotations.html
+% https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/StructuredAnnotations.html
 % Project
 % Dataset
 % Pixels
@@ -97,7 +97,7 @@ annt = p.Results.annt;
 % Channel
 % Folder
 
-% https://github.com/openmicroscopy/openmicroscopy/blob/develop/examples/Training/matlab/ReadData.m#L334
+% https://github.com/ome/omero-matlab/blob/master/examples/ReadData.m#L334
 
 
 switch parentType
