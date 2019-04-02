@@ -13,6 +13,7 @@ repositories {
 
 dependencies {
     implementation("org.openmicroscopy:omero-blitz:5.5.0-m4")
+    implementation("com.zeroc:glacier2:3.6.4")
 }
 
 
@@ -31,7 +32,7 @@ task packageDistribution(type: Zip) {
 
     from copyFiles
     into('libs') {
-        from configurations.runtimeClasspath
+        from configurations.compileClasspath
     }
 }
 
