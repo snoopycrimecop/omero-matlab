@@ -1,6 +1,6 @@
 plugins {
     id "java"
-    id "org.openmicroscopy.project" version "5.5.0-m4"
+    id "org.openmicroscopy.project" version "5.5.0-m5"
 }
 
 group = "org.openmicroscopy"
@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    implementation("org.openmicroscopy:omero-blitz:5.5.0-m4")
+    implementation("org.openmicroscopy:omero-blitz:5.5.0-m5")
 }
 
 
