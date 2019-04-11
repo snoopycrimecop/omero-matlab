@@ -18,7 +18,7 @@ function link = linkAnnotation(session, annotation, parentType, parentId)
 %
 % annotation  an omero.model.Annotation object 
 %             
-% parentType  'project' | 'dataset' | 'image' | 'screem' | 'plate' |
+% parentType  'project' | 'dataset' | 'image' | 'screen' | 'plate' |
 %             'plateacquisition' | 'roi'
 %             Depends on output of getObjectTypes()
 %
@@ -31,7 +31,7 @@ function link = linkAnnotation(session, annotation, parentType, parentId)
 %
 % See also
 
-% Copyright (C) 2013 University of Dundee & Open Microscopy Environment.
+% Copyright (C) 2013-2019 University of Dundee & Open Microscopy Environment.
 % All rights reserved.
 %
 % This program is free software; you can redistribute it and/or modify
