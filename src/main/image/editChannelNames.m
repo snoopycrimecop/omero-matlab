@@ -5,11 +5,11 @@ function T = editChannelNames(session,img,varargin)
 % SYNTAX
 % T = editChannelNames(session,img)
 % T = editChannelNames(session,img,newchanNames)
-% T = editChannelNames(____,'Param',value)
+% T = editChannelNames(session,'Param',value)
 %
 % T = editChannelNames(session,img) returns the current channel names. If
 % not specified yet, they will be empty characters, although it may look
-% like 0, 1, or 2 etc on OMERO GUI.
+% like 0, 1, or 2 etc. on OMERO GUI.
 %
 % T = editChannelNames(session,img,newchanNames) will set the channel names
 % to newchanNames.
@@ -122,7 +122,7 @@ if ~isempty(newchanNames)
     T = table(channelId,channelName,channelName_,'VariableNames',{'Id','Name','NewName'});
 
     cs = session.getContainerService();
-    cs.updateDataObjects(li,[]);% tricky to find the right type. see http://www.openmicroscopy.org/community/viewtopic.php?f=6&t=8536
+    cs.updateDataObjects(li,[]);% tricky to find the right type. see https://www.openmicroscopy.org/community/viewtopic.php?f=6&t=8536
     
 else
     T = table(channelId,channelName,'VariableNames',{'Id','Name'});
