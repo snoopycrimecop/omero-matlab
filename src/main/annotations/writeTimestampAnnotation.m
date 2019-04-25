@@ -25,7 +25,7 @@ function ta = writeTimestampAnnotation(session, value, varargin)
 % WRITEFILEANNOTATION, WRITELONGANNOTATION, WRITETAGANNOTATION,
 % WRITETEXTANNOTATION, WRITEXMLANNOTATION
 
-% Copyright (C) 2015 University of Dundee & Open Microscopy Environment.
+% Copyright (C) 2015-2019 University of Dundee & Open Microscopy Environment.
 % All rights reserved.
 %
 % This program is free software; you can redistribute it and/or modify
@@ -46,9 +46,9 @@ function ta = writeTimestampAnnotation(session, value, varargin)
 ip = inputParser;
 ip.addRequired('session');
 ip.addRequired('value', @isscalar);
-ip.addParamValue('description', '', @ischar);
-ip.addParamValue('namespace', '', @ischar);
-ip.addParamValue('group', [], @(x) isscalar(x) && isnumeric(x));
+ip.addParameter('description', '', @ischar);
+ip.addParameter('namespace', '', @ischar);
+ip.addParameter('group', [], @(x) isscalar(x) && isnumeric(x));
 ip.parse(session, value, varargin{:});
 
 % Create double annotation
@@ -58,10 +58,10 @@ ta = omero.model.TimestampAnnotationI();
 ta.setTimeValue(rtime(value));
 
 % Set annotation properties
-if ~isempty(ip.Results.description),
+if ~isempty(ip.Results.description)
     ta.setDescription(rstring(ip.Results.description));
 end
-if ~isempty(ip.Results.namespace),
+if ~isempty(ip.Results.namespace)
     ta.setNs(rstring(ip.Results.namespace));
 end
 

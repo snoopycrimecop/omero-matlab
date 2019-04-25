@@ -24,7 +24,7 @@ function la = writeLongAnnotation(session, value, varargin)
 % WRITEFILEANNOTATION, WRITETAGANNOTATION, WRITETEXTANNOTATION,
 % WRITETIMESTAMPANNOTATION, WRITEXMLANNOTATION
 
-% Copyright (C) 2015 University of Dundee & Open Microscopy Environment.
+% Copyright (C) 2015-2019 University of Dundee & Open Microscopy Environment.
 % All rights reserved.
 %
 % This program is free software; you can redistribute it and/or modify
@@ -45,9 +45,9 @@ function la = writeLongAnnotation(session, value, varargin)
 ip = inputParser;
 ip.addRequired('session');
 ip.addRequired('value', @isscalar);
-ip.addParamValue('description', '', @ischar);
-ip.addParamValue('namespace', '', @ischar);
-ip.addParamValue('group', [], @(x) isscalar(x) && isnumeric(x));
+ip.addParameter('description', '', @ischar);
+ip.addParameter('namespace', '', @ischar);
+ip.addParameter('group', [], @(x) isscalar(x) && isnumeric(x));
 ip.parse(session, value, varargin{:});
 
 % Create double annotation
@@ -55,10 +55,10 @@ la = omero.model.LongAnnotationI;
 
 % Set annotation properties
 la.setLongValue(rlong(value));
-if ~isempty(ip.Results.description),
+if ~isempty(ip.Results.description)
     la.setDescription(rstring(ip.Results.description));
 end
-if ~isempty(ip.Results.namespace),
+if ~isempty(ip.Results.namespace)
     la.setNs(rstring(ip.Results.namespace));
 end
 

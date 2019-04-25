@@ -18,7 +18,7 @@ function newobject = createObject(session, type, name, varargin)
 % See also: CREATEIMAGE, CREATEPROJECT, CREATEDATASET, CREATEPLATE,
 % CREATESCREEN
 
-% Copyright (C) 2013-2015 University of Dundee & Open Microscopy Environment.
+% Copyright (C) 2013-2019 University of Dundee & Open Microscopy Environment.
 % All rights reserved.
 %
 % This program is free software; you can redistribute it and/or modify
@@ -42,8 +42,8 @@ ip = inputParser;
 ip.addRequired('session');
 ip.addRequired('type', @(x) ischar(x) && ismember(x, objectNames));
 ip.addRequired('name', @ischar);
-ip.addParamValue('context', java.util.HashMap, @(x) isa(x, 'java.util.HashMap'));
-ip.addParamValue('group', [], @(x) isempty(x) || (isscalar(x) && isnumeric(x)));
+ip.addParameter('context', java.util.HashMap, @(x) isa(x, 'java.util.HashMap'));
+ip.addParameter('group', [], @(x) isempty(x) || (isscalar(x) && isnumeric(x)));
 ip.parse(session, type, name, varargin{:});
 
 % Create new object and upload onto the server

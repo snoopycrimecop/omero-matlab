@@ -27,7 +27,7 @@ function dataset = createDataset(session, name, varargin)
 %
 % See also: CREATEOBJECT, CREATEPROJECT
 
-% Copyright (C) 2013-2015 University of Dundee & Open Microscopy Environment.
+% Copyright (C) 2013-2019 University of Dundee & Open Microscopy Environment.
 % All rights reserved.
 %
 % This program is free software; you can redistribute it and/or modify
@@ -51,8 +51,8 @@ isValidProject = @(x) isscalar(x) && ...
 ip = inputParser;
 ip.addRequired('name', @ischar);
 ip.addOptional('project', [], isValidProject);
-ip.addParamValue('context', java.util.HashMap, @(x) isa(x, 'java.util.HashMap'));
-ip.addParamValue('group', [], @(x) isempty(x) || (isscalar(x) && isnumeric(x)));
+ip.addParameter('context', java.util.HashMap, @(x) isa(x, 'java.util.HashMap'));
+ip.addParameter('group', [], @(x) isempty(x) || (isscalar(x) && isnumeric(x)));
 ip.parse(name, varargin{:});
 
 if ~isempty(ip.Results.project)
