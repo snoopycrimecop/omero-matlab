@@ -57,13 +57,9 @@ function ma = strToMapAnnotation(session, str, varargin)
 p = inputParser;
 p.addRequired('session',@(x) isscalar(x));
 
-if verLessThan('matlab','9.1.0')
-    p.addRequired('str',@(x) (size(str,2) ==2 || size(str,2) == 3) ...
-        && iscellstr(x));  %#ok<ISCLSTR>
-else
-    p.addRequired('str',@(x) (size(str,2) ==2 || size(str,2) == 3) ...
+p.addRequired('str',@(x) (size(str,2) ==2 || size(str,2) == 3) ...
         && iscellstr(x) || isstring(x) );
-end
+
 p.addOptional('iseditable',false,@(x) isscalar(x) && x == 1 || x == 0);
 p.addParameter('description', '', @ischar);
 
@@ -74,12 +70,6 @@ description = p.Results.description;
 
 
 %% Job
-
-if ~verLessThan('matlab','9.1.0') && isstring(str) 
-    
-   str = cellstr(str);
-    
-end
 
 
 if iseditable
