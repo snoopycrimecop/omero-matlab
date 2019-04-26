@@ -27,7 +27,7 @@ function fa = writeFileAnnotation(session, filePath, varargin)
 % WRITELONGANNOTATION, WRITETAGANNOTATION, WRITETEXTANNOTATION,
 % WRITETIMESTAMPANNOTATION, WRITEXMLANNOTATION, UPDATEORIGINALFILE
 
-% Copyright (C) 2013-2015 University of Dundee & Open Microscopy Environment.
+% Copyright (C) 2013-2019 University of Dundee & Open Microscopy Environment.
 % All rights reserved.
 %
 % This program is free software; you can redistribute it and/or modify
@@ -48,10 +48,10 @@ function fa = writeFileAnnotation(session, filePath, varargin)
 ip = inputParser;
 ip.addRequired('session');
 ip.addRequired('filePath', @(x) exist(x, 'file') == 2);
-ip.addParamValue('mimetype', '', @ischar);
-ip.addParamValue('namespace', '', @ischar);
-ip.addParamValue('description', '', @ischar);
-ip.addParamValue('group', [], @(x) isscalar(x) && isnumeric(x));
+ip.addParameter('mimetype', '', @ischar);
+ip.addParameter('namespace', '', @ischar);
+ip.addParameter('description', '', @ischar);
+ip.addParameter('group', [], @(x) isscalar(x) && isnumeric(x));
 ip.parse(session, filePath, varargin{:});
 
 % Create original file
@@ -59,7 +59,7 @@ originalFile = omero.model.OriginalFileI;
 originalFile.setHasher(omero.model.ChecksumAlgorithmI());
 originalFile.getHasher.setValue(rstring('SHA1-160'));
 
-if ~isempty(ip.Results.mimetype),
+if ~isempty(ip.Results.mimetype)
     originalFile.setMimetype(rstring(ip.Results.mimetype));
 end
 
@@ -70,11 +70,11 @@ originalFile = updateOriginalFile(...
 fa = omero.model.FileAnnotationI;
 fa.setFile(originalFile);
 
-if ~isempty(ip.Results.description),
+if ~isempty(ip.Results.description)
     fa.setDescription(rstring(ip.Results.description));
 end
 
-if ~isempty(ip.Results.namespace),
+if ~isempty(ip.Results.namespace)
     fa.setNs(rstring(ip.Results.namespace))
 end
 

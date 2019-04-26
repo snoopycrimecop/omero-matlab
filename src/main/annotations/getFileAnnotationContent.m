@@ -16,7 +16,7 @@ function getFileAnnotationContent(session, fileAnnotation, path)
 %
 % See also: GETFILEANNOTATIONS
 
-% Copyright (C) 2013 University of Dundee & Open Microscopy Environment.
+% Copyright (C) 2013-2019 University of Dundee & Open Microscopy Environment.
 % All rights reserved.
 %
 % This program is free software; you can redistribute it and/or modify
@@ -38,11 +38,11 @@ isLoadedFA = @(x) isa(x, 'omero.model.FileAnnotationI') && x.isLoaded();
 ip = inputParser;
 ip.addRequired('fileAnnotation', @(x) isLoadedFA(x) || isscalar(x));
 ip.addRequired('path', @ischar);
-ip.addParamValue('group', [], @(x) isscalar(x) && isnumeric(x));
+ip.addParameter('group', [], @(x) isscalar(x) && isnumeric(x));
 ip.parse(fileAnnotation, path);
 
 
-if ~isa(fileAnnotation, 'omero.model.FileAnnotationI'),
+if ~isa(fileAnnotation, 'omero.model.FileAnnotationI')
     % Load the file annotation from the server
     faID = ip.Results.fileAnnotation;
     fileAnnotation = getFileAnnotations(session, faID);

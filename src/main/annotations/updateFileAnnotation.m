@@ -25,7 +25,7 @@ function fileAnnotation = updateFileAnnotation(session, fileAnnotation, filePath
 %
 % See also: writeFileAnnotation, updateOriginalFile
 
-% Copyright (C) 2013 University of Dundee & Open Microscopy Environment.
+% Copyright (C) 2013-2019 University of Dundee & Open Microscopy Environment.
 % All rights reserved.
 %
 % This program is free software; you can redistribute it and/or modify
@@ -47,9 +47,9 @@ ip = inputParser;
 ip.addRequired('session');
 ip.addRequired('fileAnnotation', @(x) isa(x, 'omero.model.FileAnnotationI'));
 ip.addRequired('filePath', @(x) exist(x, 'file') == 2);
-ip.addParamValue('namespace', '', @ischar);
-ip.addParamValue('description', '', @ischar);
-ip.addParamValue('group', [], @(x) isscalar(x) && isnumeric(x));
+ip.addParameter('namespace', '', @ischar);
+ip.addParameter('description', '', @ischar);
+ip.addParameter('group', [], @(x) isscalar(x) && isnumeric(x));
 ip.parse(session, fileAnnotation, filePath, varargin{:});
 
 context = java.util.HashMap;
@@ -75,12 +75,12 @@ if ~isempty(ip.Results.description)
     fileAnnotation.setDescription(rstring(ip.Results.description));
 end
 
-if ~isempty(ip.Results.namespace),
+if ~isempty(ip.Results.namespace)
     % Update the namespace
     fileAnnotation.setNs(rstring(ip.Results.namespace))
 end
 
-if ~isempty(ip.Results.description) || ~isempty(ip.Results.namespace),
+if ~isempty(ip.Results.description) || ~isempty(ip.Results.namespace)
     % Save the file annotation
     fileAnnotation = session.getUpdateService().saveAndReturnObject(...
         fileAnnotation, context);

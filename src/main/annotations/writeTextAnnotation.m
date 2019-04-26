@@ -25,7 +25,7 @@ function ann = writeTextAnnotation(session, type, text, varargin)
 % WRITEFILEANNOTATION, WRITETAGANNOTATION, WRITETIMESTAMPANNOTATION,
 % WRITEXMLANNOTATION
 
-% Copyright (C) 2013-2015 University of Dundee & Open Microscopy Environment.
+% Copyright (C) 2013-2019 University of Dundee & Open Microscopy Environment.
 % All rights reserved.
 %
 % This program is free software; you can redistribute it and/or modify
@@ -49,9 +49,9 @@ ip = inputParser;
 ip.addRequired('session');
 ip.addRequired('type', @(x) ischar(x) && ismember(x, annotationNames));
 ip.addRequired('text', @ischar);
-ip.addParamValue('description', '', @ischar);
-ip.addParamValue('namespace', '', @ischar);
-ip.addParamValue('group', [], @(x) isscalar(x) && isnumeric(x));
+ip.addParameter('description', '', @ischar);
+ip.addParameter('namespace', '', @ischar);
+ip.addParameter('group', [], @(x) isscalar(x) && isnumeric(x));
 ip.parse(session, type, text, varargin{:});
 
 % Create text annotation of input type
@@ -59,10 +59,10 @@ ann = annotationTypes(strcmp(type, annotationNames)).Iobject();
 
 % Set annotation properties
 ann.setTextValue(rstring(ip.Results.text));
-if ~isempty(ip.Results.description),
+if ~isempty(ip.Results.description)
     ann.setDescription(rstring(ip.Results.description));
 end
-if ~isempty(ip.Results.namespace),
+if ~isempty(ip.Results.namespace)
     ann.setNs(rstring(ip.Results.namespace));
 end
 
