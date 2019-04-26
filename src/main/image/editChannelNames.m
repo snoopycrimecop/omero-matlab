@@ -89,7 +89,11 @@ import java.util.ArrayList
 li = ArrayList;
 
 j = 0;
-for i = 1:numel(channels)
+n = numel(channels);
+if ~isempty(newchanNames) && n > numel(newchanNames)
+    n = numel(newchanNames);
+end
+for i = 1:n
     ch = channels(i);
     channelId(i,1) = double(ch.getId().getValue());
     
