@@ -65,6 +65,7 @@ assert(~strcmp(objectType.class, 'omero.model.Roi'),...
 
 % Get the parent object
 if isnumeric(parentId)
+    assert(~isempty(parentId), 'No %s specified', parentType);
     parent = getObjects(session, parentType, parentId);
     assert(~isempty(parent), 'No %s with id %g found', parentType, parentId);
 else
