@@ -4,7 +4,7 @@ function ma = updateMapAnnotation(session, ma, keyvalue, varargin)
 %
 % SYNTAX
 % ma = updateMapAnnotation(session, ma, keyvalue)
-% ma = updateMapAnnotation(____,'Param',value)
+% ma = updateMapAnnotation(session,'Param',value)
 %
 % INPUT ARGUMENTS
 % session     omero.api.ServiceFactoryPrxHelper object
@@ -12,10 +12,10 @@ function ma = updateMapAnnotation(session, ma, keyvalue, varargin)
 % ma          MapAnnotationI object
 %
 % keyvalue    cell array of characters | string array
-%             The number of columns must be 2. The first colum is for keys
+%             The number of columns must be 2. The first column is for keys
 %             and the second column is for values.
 %
-% OPTIONAL PARA<ETER/VALUE PAIRS
+% OPTIONAL PARAMETER/VALUE PAIRS
 % 'namespace' char
 %             Namespace for the MapAnnotation. If you specify this, the
 %             value of 'iseditable' will be ignored.
@@ -86,7 +86,7 @@ end
 if isempty(ip.Results.namespace)
 
     if ip.Results.iseditable
-        %NOTE this is required to make it editable from GUI
+        % NOTE this is required to make it editable from GUI
         eval('import omero.constants.metadata.NSCLIENTMAPANNOTATION')
         ma.setNs(rstring(char(NSCLIENTMAPANNOTATION.value)));
     else
@@ -99,7 +99,7 @@ end
 
 
 
-%update the keys and values of the object
+% Update the keys and values of the object
 
 keys = cellstr(keyvalue(:,1));
 values = cellstr(keyvalue(:,2));
