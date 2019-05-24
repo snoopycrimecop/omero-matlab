@@ -1,6 +1,6 @@
 plugins {
     id "java"
-    id "org.openmicroscopy.project" version "5.5.0-m5"
+    id "org.openmicroscopy.project" version "5.5.1"
 }
 
 group = "org.openmicroscopy"
@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    implementation("org.openmicroscopy:omero-gateway:5.5.0-m6")
+    implementation("org.openmicroscopy:omero-gateway:5.5.0")
 }
 
 
