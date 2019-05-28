@@ -12,6 +12,7 @@ install:
 
 script:
   - ./gradlew build
+  - test -f build/distributions/OMERO.matlab-*
 
 deploy:
   provider: releases
