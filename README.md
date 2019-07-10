@@ -1,7 +1,7 @@
+# OMERO.matlab
+
 [![Build Status](https://travis-ci.org/ome/omero-matlab.png)](https://travis-ci.org/ome/omero-matlab)
 
-
-# omero-matlab
 
 OMERO Matlab client library
 
