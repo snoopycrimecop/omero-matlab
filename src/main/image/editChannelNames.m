@@ -22,19 +22,19 @@ function T = editChannelNames(session,img,varargin)
 %
 % newchanNames
 %             cell vector of character vectors | string vector
-%             The new channel names. If you specify 'channelIDs', the
-%             length of channelIDs and that of newchanNames must tally.
+%             The new channel names. If you specify 'ChannelIndexes', the
+%             length of ChannelIndexes and that of newchanNames must tally.
 %
 % OPTIONAL PARAMETER/VALUE PAIRS
-% 'channelIDs'
+% 'channelIndexes'
 %             [] | vector of positive integers
-%             (Optional) Channel IDs for specific editing. If you specify
-%             'channelIDs', the length of channelIDs and that of
-%             newchanNames must tally.
+%             (Optional) Channel indexes for specific editing. If you specify
+%             'channelIndexes', the length of channelIndexes and that of
+%             newchannelNames must tally.
 %
 % OUTPUT ARGUMENTS
 % T           table array
-%             With variables, 'Id', 'Name', and, if newchanNames is
+%             With variables, 'Id', 'Name', and, if newchannelNames is
 %             specified, 'NewName'.
 %
 % Written by Kouichi C. Nakamura Ph.D.
@@ -49,18 +49,18 @@ function T = editChannelNames(session,img,varargin)
 p = inputParser;
 p.addRequired('session',@(x) isscalar(x));
 p.addRequired('img',@(x) isscalar(x));
-p.addOptional('newchanNames',[],@(x) isvector(x) && iscellstr(x) || isstring(x));
-p.addParameter('ChannelIDs',[],@(x) isvector(x) && all(fix(x) == x & x > 0));
+p.addOptional('newchannelNames',[],@(x) isvector(x) && iscellstr(x) || isstring(x));
+p.addParameter('channelIndexes',[],@(x) isvector(x) && all(fix(x) == x & x > 0));
 
 p.parse(session,img,varargin{:});
 
-newchanNames = p.Results.newchanNames;
-channelIDs = p.Results.ChannelIDs;
+newchanNames = p.Results.newchannelNames;
+channelIndexes = p.Results.channelIndexes;
 
-if ~isempty(channelIDs)
+if ~isempty(channelIndexes)
     
-    assert(length(channelIDs) == length(newchanNames),...
-        'When you specify channelIDs, the length of channelIDs and newchanNames must tally.') 
+    assert(length(channelIndexes) == length(newchanNames),...
+        'When you specify channelIndexes, the length of channelIndexes and newchannelNames must tally.') 
     
 end
 
@@ -80,7 +80,7 @@ end
 
 channels = loadChannels(session, img);
 
-channelId = zeros(numel(channels),1);
+channelIndex = zeros(numel(channels),1);
 channelName = cell(numel(channels),1);
 channelName_ = cell(numel(channels),1);
 
@@ -90,13 +90,10 @@ li = ArrayList;
 
 j = 0;
 n = numel(channels);
-if ~isempty(newchanNames) && n > numel(newchanNames)
-    n = numel(newchanNames);
-end
+
 for i = 1:n
     ch = channels(i);
-    channelId(i,1) = double(ch.getId().getValue());
-    
+    channelIndex(i,1) = double(i);
     if ~isempty(ch.getLogicalChannel().getName())
     
         channelName{i,1} = char(ch.getLogicalChannel().getName().getValue()); %java.lang.String
@@ -106,12 +103,10 @@ for i = 1:n
         channelName{i,1} ='';
         
     end
-    
     if ~isempty(newchanNames)
-        if isempty(channelIDs) || ismember(channelId(i,1),channelIDs)
+        if isempty(channelIndexes) || ismember(channelIndex(i,1),channelIndexes)
             j = j + 1;
-
-            channels(i).getLogicalChannel().setName(rstring(newchanNames{j})); % overwrite
+            ch.getLogicalChannel().setName(rstring(newchanNames{j})); % overwrite
             channelName_{i,1} = char(ch.getLogicalChannel().getName().getValue());
         else
             channelName_{i,1} = channelName{i,1};
@@ -119,17 +114,18 @@ for i = 1:n
         end 
     end
     
-    li.add(channels(i));
+    li.add(ch);
 end
 
+
 if ~isempty(newchanNames)
-    T = table(channelId,channelName,channelName_,'VariableNames',{'Id','Name','NewName'});
+    T = table(channelIndex,channelName,channelName_,'VariableNames',{'Index','Name','NewName'});
 
     cs = session.getContainerService();
     cs.updateDataObjects(li,[]);% tricky to find the right type. see https://www.openmicroscopy.org/community/viewtopic.php?f=6&t=8536
     
 else
-    T = table(channelId,channelName,'VariableNames',{'Id','Name'});
+    T = table(channelIndex,channelName,'VariableNames',{'Index','Name'});
 end
 
 
