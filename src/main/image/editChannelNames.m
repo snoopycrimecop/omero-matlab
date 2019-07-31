@@ -4,12 +4,13 @@ function T = editChannelNames(session,img,varargin)
 %
 % SYNTAX
 % T = editChannelNames(session,img)
-% T = editChannelNames(session,img,newchanNames)
+% T = editChannelNames(session,img,newchannelNames)
 % T = editChannelNames(session,'Param',value)
 %
 % T = editChannelNames(session,img) returns the current channel names. If
 % not specified yet, they will be empty characters, although it may look
-% like 0, 1, or 2 etc. on OMERO GUI.
+% like 0, 1, or 2 etc. on OMERO GUI since in that case the index of the channel
+% is used.
 %
 % T = editChannelNames(session,img,newchanNames) will set the channel names
 % to newchanNames.
