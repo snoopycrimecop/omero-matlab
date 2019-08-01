@@ -12,8 +12,8 @@ function T = editChannelNames(session,img,varargin)
 % like 0, 1, or 2 etc. on OMERO GUI since in that case the index of the channel
 % is used.
 %
-% T = editChannelNames(session,img,newchanNames) will set the channel names
-% to newchanNames.
+% T = editChannelNames(session,img,newchannelNames) will set the channel names
+% to newchannelNames.
 %
 % INPUT ARGUMENTS
 % session     omero.api.ServiceFactoryPrxHelper object
@@ -21,10 +21,10 @@ function T = editChannelNames(session,img,varargin)
 % img         positive integer | omero.model.ImageI object
 %             An Image ID or an omero.model.ImageI object for OMERO.
 %
-% newchanNames
+% newchannelNames
 %             cell vector of character vectors | string vector
-%             The new channel names. If you specify 'ChannelIndexes', the
-%             length of ChannelIndexes and that of newchanNames must tally.
+%             The new channel names. If you specify 'channelIndexes', the
+%             length of channelIndexes and that of newchanNames must tally.
 %
 % OPTIONAL PARAMETER/VALUE PAIRS
 % 'channelIndexes'
