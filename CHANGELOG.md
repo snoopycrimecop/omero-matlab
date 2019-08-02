@@ -1,3 +1,9 @@
+5.5.2 (August 2019)
+-------------------
+
+- Add function to edit the name of channels. Thanks to Kouichi Nakamura
+
+
 5.5.1 (July 2019)
 ----------------
 
