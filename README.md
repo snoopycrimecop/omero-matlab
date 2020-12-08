@@ -1,7 +1,6 @@
 # OMERO.matlab
 
-[![Build Status](https://travis-ci.org/ome/omero-matlab.png)](https://travis-ci.org/ome/omero-matlab)
-
+[![Actions Status](https://github.com/ome/omero-matlab/workflows/Gradle/badge.svg)](https://github.com/ome/omero-matlab/actions)
 
 OMERO Matlab client library
 
