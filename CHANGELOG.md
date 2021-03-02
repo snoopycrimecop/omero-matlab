@@ -1,3 +1,8 @@
+5.5.4 (March 2021)
+------------------
+
+- Bump omero-gateway version to 5.6.5
+
 5.5.3 (January 2020)
 --------------------
 
