@@ -8,7 +8,7 @@ version = "5.5.5-SNAPSHOT"
 
 repositories {
     mavenLocal()
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
