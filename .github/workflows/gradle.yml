@@ -34,7 +34,7 @@ jobs:
         run: gradle ${{ env.gradle_commands }}
       - name: Upload artifacts
         if: startsWith(matrix.os, 'ubuntu') && matrix.java == '8'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: artifacts
           path: ${{ env.artifact_dir }}
@@ -48,7 +48,7 @@ jobs:
       publishing_target: github # default is github
     steps:
       - name: Download artifacts from build
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
       - name: List artifacts
         run: ls -R
       - name: Upload binaries to release
