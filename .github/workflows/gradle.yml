@@ -33,7 +33,7 @@ jobs:
       - name: Run commands
         run: gradle ${{ env.gradle_commands }}
       - name: Upload artifacts
-        if: startsWith(matrix.os, 'ubuntu') && matrix.java == '8'
+        if: startsWith(matrix.os, 'ubuntu') && matrix.java == '11'
         uses: actions/upload-artifact@v4
         with:
           name: artifacts
