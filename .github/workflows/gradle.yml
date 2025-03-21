@@ -19,7 +19,7 @@ jobs:
       gradle_commands: build # default is build
       artifact_dir: build/distributions/*
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Java ${{ matrix.java }} and Gradle 
         uses: ome/action-gradle@v3.2
         with:
